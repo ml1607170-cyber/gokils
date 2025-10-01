@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOTOHAX V5 - AI Account Hacking Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8b5cf6',
+                        secondary: '#7c3aed',
+                        dark: '#0f172a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Oxanium', monospace;
+            overflow-x: hidden;
+        }
+        .hacking-terminal {
+            font-family: 'Courier New', monospace;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .password-dots {
+            letter-spacing: 0.3em;
+        }
+        .glow {
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
+        }
+        .progress-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .typewriter {
+            border-right: 3px solid;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #8b5cf6 }
+        }
+    </style>
+</head>
+<body class="bg-dark text-gray-200 min-h-screen">
+    <div id="vanta-bg" class="fixed inset-0 -z-10"></div>
+    
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-primary/90 to-secondary/90 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i data-feather="shield" class="w-8 h-8 text-white"></i>
+                <h1 class="text-2xl font-bold glow">TOTOHAX <span class="text-yellow-400">V5</span></h1>
+            </div>
+            <div class="bg-black/40 px-4 py-2 rounded-full border border-primary flex items-center">
+                <i data-feather="phone" class="w-4 h-4 mr-2"></i>
+                <span class="font-mono">+6285820010137</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- User Balance -->
+        <div class="bg-dark border border-primary/50 rounded-lg p-4 mb-6 shadow-lg">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-sm uppercase text-primary mb-1">Saldo Akun</h2>
+                    <p class="text-2xl font-bold">Rp <span id="userBalance">150,000</span></p>
+                </div>
+                <button id="topupBtn" class="bg-primary hover:bg-secondary px-4 py-2 rounded-lg flex items-center transition-all">
+                    <i data-feather="plus" class="w-4 h-4 mr-2"></i>
+                    Top Up
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-dark/80 border border-primary/20 rounded-lg p-4 text-center">
+                <i data-feather="clock" class="w-6 h-6 mx-auto text-green-400 mb-2"></i>
+                <h3 class="text-lg font-bold">Aktif 24/7</h3>
+            </div>
+            <div class="bg-dark/80 border border-primary/20 rounded-lg p-4 text-center">
+                <i data-feather="check-circle" class="w-6 h-6 mx-auto text-green-400 mb-2"></i>
+                <h3 class="text-lg font-bold">Berhasil 100%</h3>
+            </div>
+            <div class="bg-dark/80 border border-primary/20 rounded-lg p-4 text-center">
+                <i data-feather="users" class="w-6 h-6 mx-auto text-green-400 mb-2"></i>
+                <h3 class="text-lg font-bold">86+ Akun</h3>
+            </div>
+            <div class="bg-dark/80 border border-primary/20 rounded-lg p-4 text-center">
+                <i data-feather="package" class="w-6 h-6 mx-auto text-green-400 mb-2"></i>
+                <h3 class="text-lg font-bold">10 Game</h3>
+            </div>
+        </div>
+
+        <!-- Hack Panel -->
+        <div class="bg-dark/80 border border-primary/50 rounded-lg p-6 shadow-xl mb-8 backdrop-blur-sm">
+            <h2 class="text-xl font-bold mb-6 text-center glow">AI HACKING PANEL</h2>
+            
+            <!-- Target Input -->
+            <div class="mb-6">
+                <label for="targetInput" class="block text-sm font-medium mb-2">ID/Username/Email Target</label>
+                <div class="relative">
+                    <input type="text" id="targetInput" class="w-full bg-dark border border-primary/50 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter target account">
+                    <i data-feather="user" class="absolute right-3 top-3 text-primary"></i>
+                </div>
+            </div>
+
+            <!-- Top Up Amount -->
+            <div class="mb-6 hidden" id="topupSection">
+                <label for="topupAmount" class="block text-sm font-medium mb-2">Jumlah Top Up (Rp)</label>
+                <div class="relative">
+                    <input type="number" id="topupAmount" class="w-full bg-dark border border-primary/50 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Masukkan jumlah">
+                    <i data-feather="dollar-sign" class="absolute right-3 top-3 text-primary"></i>
+                    <div class="flex space-x-2 mt-2">
+                        <button class="quick-amount bg-dark border border-primary/50 hover:bg-primary/20 px-3 py-1 rounded text-xs" data-amount="50000">50K</button>
+                        <button class="quick-amount bg-dark border border-primary/50 hover:bg-primary/20 px-3 py-1 rounded text-xs" data-amount="100000">100K</button>
+                        <button class="quick-amount bg-dark border border-primary/50 hover:bg-primary/20 px-3 py-1 rounded text-xs" data-amount="200000">200K</button>
+                        <button class="quick-amount bg-dark border border-primary/50 hover:bg-primary/20 px-3 py-1 rounded text-xs" data-amount="500000">500K</button>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium mb-2">Metode Pembayaran</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button class="payment-option bg-dark border border-primary/50 hover:border-primary px-3 py-2 rounded text-sm flex items-center" data-bank="Dana">
+                            <img src="http://static.photos/finance/200x200/1" class="w-5 h-5 mr-2 rounded-full" alt="Dana">
+                            Dana
+                        </button>
+                        <button class="payment-option bg-dark border border-primary/50 hover:border-primary px-3 py-2 rounded text-sm flex items-center" data-bank="Gopay">
+                            <img src="http://static.photos/finance/200x200/2" class="w-5 h-5 mr-2 rounded-full" alt="Gopay">
+                            Gopay
+                        </button>
+                        <button class="payment-option bg-dark border border-primary/50 hover:border-primary px-3 py-2 rounded text-sm flex items-center" data-bank="Seabank">
+                            <img src="http://static.photos/finance/200x200/3" class="w-5 h-5 mr-2 rounded-full" alt="Seabank">
+                            Seabank
+                        </button>
+                        <button class="payment-option bg-dark border border-primary/50 hover:border-primary px-3 py-2 rounded text-sm flex items-center" data-bank="Binance">
+                            <img src="http://static.photos/finance/200x200/4" class="w-5 h-5 mr-2 rounded-full" alt="Binance">
+                            Binance
+                        </button>
+                        <button class="payment-option bg-dark border border-primary/50 hover:border-primary px-3 py-2 rounded text-sm flex items-center" data-bank="QRIS">
+                            <img src="http://static.photos/finance/200x200/5" class="w-5 h-5 mr-2 rounded-full" alt="QRIS">
+                            QRIS
+                        </button>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button id="payTopupBtn" class="bg-primary/20 hover:bg-primary/30 text-primary px-4 py-2 rounded text-sm transition-all">
+                        BAYAR TOP UP
+                    </button>
+                </div>
+            </div>
+            <!-- End Top Up Amount -->
+
+            <!-- Game Selection -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-2">Pilih Game</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                    <button class="game-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center">
+                        <img src="http://static.photos/gaming/200x200/1" class="w-5 h-5 mr-2 rounded-full" alt="Free Fire">
+                        Free Fire
+                    </button>
+                    <button class="game-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center">
+                        <img src="http://static.photos/gaming/200x200/2" class="w-5 h-5 mr-2 rounded-full" alt="Mobile Legends">
+                        Mobile Legends
+                    </button>
+                    <button class="game-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center">
+                        <img src="http://static.photos/gaming/200x200/3" class="w-5 h-5 mr-2 rounded-full" alt="Call of Duty">
+                        Call of Duty
+                    </button>
+                    <button class="game-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center">
+                        <img src="http://static.photos/gaming/200x200/4" class="w-5 h-5 mr-2 rounded-full" alt="PUBG">
+                        PUBG
+                    </button>
+                    <button class="game-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center">
+                        <img src="http://static.photos/gaming/200x200/5" class="w-5 h-5 mr-2 rounded-full" alt="Honor of Kings">
+                        Honor of Kings
+                    </button>
+                    <button class="game-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center">
+                        <img src="http://static.photos/gaming/200x200/6" class="w-5 h-5 mr-2 rounded-full" alt="Roblox">
+                        Roblox
+                    </button>
+                    <button class="game-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center">
+                        <img src="http://static.photos/gaming/200x200/7" class="w-5 h-5 mr-2 rounded-full" alt="Delta Force">
+                        Delta Force
+                    </button>
+                    <button class="game-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center">
+                        <img src="http://static.photos/gaming/200x200/8" class="w-5 h-5 mr-2 rounded-full" alt="eFootball">
+                        eFootball
+                    </button>
+                    <button class="game-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center">
+                        <img src="http://static.photos/gaming/200x200/9" class="w-5 h-5 mr-2 rounded-full" alt="Blood Strike">
+                        Blood Strike
+                    </button>
+                    <button class="game-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center">
+                        <img src="http://static.photos/gaming/200x200/10" class="w-5 h-5 mr-2 rounded-full" alt="Arena Breakout">
+                        Arena Breakout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Login Method -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-2">Metode Login</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                    <button class="method-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center justify-center">
+                        <img src="http://static.photos/technology/200x200/1" class="w-5 h-5 mr-2 rounded-full" alt="Google">
+                        Google
+                    </button>
+                    <button class="method-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center justify-center">
+                        <img src="http://static.photos/technology/200x200/facebook.png" class="w-5 h-5 mr-2 rounded-full" alt="Facebook">
+                        Facebook
+                    </button>
+                    <button class="method-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center justify-center">
+                        <img src="http://static.photos/technology/200x200/garena.png" class="w-5 h-5 mr-2 rounded-full" alt="Garena">
+                        Garena
+                    </button>
+                    <button class="method-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center justify-center">
+                        <img src="http://static.photos/technology/200x200/konami.png" class="w-5 h-5 mr-2 rounded-full" alt="Konami">
+                        Konami
+                    </button>
+                    <button class="method-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center justify-center">
+                        <img src="http://static.photos/technology/200x200/infinite.png" class="w-5 h-5 mr-2 rounded-full" alt="Infinite">
+                        Infinite
+                    </button>
+                    <button class="method-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center justify-center">
+                        <img src="http://static.photos/technology/200x200/twitter.png" class="w-5 h-5 mr-2 rounded-full" alt="Twitter">
+                        Twitter
+                    </button>
+                    <button class="method-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center justify-center">
+                        <img src="http://static.photos/technology/200x200/moonton.png" class="w-5 h-5 mr-2 rounded-full" alt="Moonton">
+                        Moonton
+                    </button>
+                    <button class="method-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center justify-center">
+                        <img src="http://static.photos/technology/200x200/apple.png" class="w-5 h-5 mr-2 rounded-full" alt="Apple">
+                        Apple
+                    </button>
+                    <button class="method-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center justify-center">
+                        <img src="http://static.photos/technology/200x200/qq.png" class="w-5 h-5 mr-2 rounded-full" alt="QQ">
+                        QQ
+                    </button>
+                    <button class="method-btn bg-dark border border-primary/30 hover:bg-primary/20 px-3 py-2 rounded text-sm transition-all flex items-center justify-center">
+                        <img src="http://static.photos/technology/200x200/wechat.png" class="w-5 h-5 mr-2 rounded-full" alt="WeChat">
+                        WeChat
+                    </button>
+                </div>
+            </div>
+
+            <!-- Processing Time -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-2">Waktu Pengerjaan</label>
+                <div class="grid grid-cols-2 gap-4">
+                    <button id="oneHour" class="time-btn bg-dark border border-primary/50 hover:border-primary px-4 py-3 rounded-lg transition-all">
+                        <div class="flex flex-col items-start">
+                            <span>1 JAM PROSES</span>
+                            <span class="bg-primary/20 px-2 py-1 rounded text-xs mt-1">Rp 50,000</span>
+                            <span class="text-green-400 text-xs mt-1">Rate: 100%</span>
+                        </div>
+                    </button>
+                    <button id="sevenHour" class="time-btn bg-dark border border-primary/50 hover:border-primary px-4 py-3 rounded-lg transition-all">
+                        <div class="flex flex-col items-start">
+                            <span>7 JAM PROSES</span>
+                            <span class="bg-primary/20 px-2 py-1 rounded text-xs mt-1">Rp 30,000</span>
+                            <span class="text-yellow-400 text-xs mt-1">Rate: 85%</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hack Button -->
+            <button id="hackBtn" class="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold py-4 px-6 rounded-lg shadow-lg transition-all transform hover:scale-[1.01] flex items-center justify-center">
+                <i data-feather="zap" class="w-5 h-5 mr-2"></i>
+                INITIATE ACCOUNT HACKING
+            </button>
+        </div>
+
+        <!-- AI System Info -->
+        <div class="bg-dark/80 border border-primary/50 rounded-lg p-6 shadow-xl mb-8 backdrop-blur-sm">
+            <h2 class="text-xl font-bold mb-4 glow">AI HACKING SYSTEM</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <div class="flex items-start mb-4">
+                        <div class="bg-primary/20 p-2 rounded-full mr-3">
+                            <i data-feather="cpu" class="w-5 h-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">Machine Learning</h3>
+                            <p class="text-sm text-gray-400">AI kami belajar dari setiap percobaan hack untuk meningkatkan keberhasilan hingga 100%</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start mb-4">
+                        <div class="bg-primary/20 p-2 rounded-full mr-3">
+                            <i data-feather="shield" class="w-5 h-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">Bypass Security</h3>
+                            <p class="text-sm text-gray-400">Dapat menembus semua sistem keamanan terbaru termasuk 2FA dan enkripsi end-to-end</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-start mb-4">
+                        <div class="bg-primary/20 p-2 rounded-full mr-3">
+                            <i data-feather="lock" class="w-5 h-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">Smart Encryption</h3>
+                            <p class="text-sm text-gray-400">Mengenkripsi ulang data yang diambil untuk menghindari deteksi oleh sistem game</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary/20 p-2 rounded-full mr-3">
+                            <i data-feather="activity" class="w-5 h-5 text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">24/7 Monitoring</h3>
+                            <p class="text-sm text-gray-400">Sistem kami terus memantau akun yang berhasil dihack untuk memastikan tidak terkena ban</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hacking Terminal (Hidden Initially) -->
+        <div id="hackingTerminal" class="bg-dark border border-primary/50 rounded-lg p-6 shadow-xl mb-8 hacking-terminal hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-green-400">HACKING PROGRESS</h2>
+                <div class="flex items-center">
+                    <div class="h-3 w-3 rounded-full bg-green-400 mr-1 animate-pulse"></div>
+                    <span class="text-xs">ACTIVE</span>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <div class="flex justify-between text-sm mb-1">
+                    <span>Progress</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="w-full bg-dark border border-primary/50 rounded-full h-2.5">
+                    <div id="progressBar" class="bg-gradient-to-r from-green-400 to-primary h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+            <div id="terminalLogs" class="h-48 overflow-y-auto bg-black/30 p-3 rounded mb-4 font-mono text-sm text-green-300">
+                <div>> Initializing TOTOHAX V5 AI Hacking System...</div>
+                <div>> Establishing secure connection...</div>
+                <div>> Scanning target account...</div>
+                <div>> Loading exploit database...</div>
+                <div>> Analyzing security protocols...</div>
+                <div>> Deploying AI penetration module...</div>
+                <div>> Bypassing 2FA protection...</div>
+                <div>> Cracking encryption keys...</div>
+                <div>> Injecting payload...</div>
+                <div>> Establishing persistence...</div>
+                <div>> Creating backdoor entry...</div>
+            </div>
+            <div class="flex justify-end">
+                <button id="cancelHack" class="bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-red-400 px-4 py-2 rounded text-sm transition-all">
+                    CANCEL PROCESS
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Panel (Hidden Initially) -->
+        <div id="resultsPanel" class="bg-dark border border-primary/50 rounded-lg p-6 shadow-xl hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-green-400 glow">HACKING SUCCESSFUL!</h2>
+                <span class="bg-green-400/20 text-green-400 px-3 py-1 rounded-full text-xs">SECURED</span>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Email</label>
+                        <div class="bg-dark border border-primary/50 rounded-lg px-4 py-3 font-mono">hacked<span class="text-primary">@totohax</span>.com</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <div class="flex items-center">
+                            <div id="passwordField" class="bg-dark border border-primary/50 rounded-lg px-4 py-3 font-mono flex-1 password-dots">••••••••••</div>
+                            <button id="showPasswordBtn" class="ml-2 bg-primary/20 hover:bg-primary/30 border border-primary/50 text-primary px-4 py-3 rounded-lg transition-all">
+                                <i data-feather="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <!-- Warning UNLOCK PASSWORD muncul di bawah tombol -->
+                        <div id="unlockWarning" class="mt-4"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Login Method</label>
+                        <div class="bg-dark border border-primary/50 rounded-lg px-4 py-3 flex items-center" id="loginMethod">
+                            <img src="http://static.photos/technology/200x200/facebook.png" class="w-5 h-5 mr-2 rounded-full" alt="Facebook">
+                            Facebook
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Game</label>
+                        <div class="bg-dark border border-primary/50 rounded-lg px-4 py-3">
+                            <span id="gameName">Mobile Legends</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-black/40 border border-primary/20 rounded-lg p-4 mb-6">
+                <h3 class="font-bold text-primary mb-2">IMPORTANT!</h3>
+                <p class="text-sm">Akun ini telah berhasil diambil alih oleh sistem AI kami. Pastikan untuk tidak mengubah email atau password dalam 24 jam pertama untuk menghindari deteksi oleh sistem game.</p>
+            </div>
+            
+            <div class="flex justify-end space-x-3">
+                <button id="newHackBtn" class="bg-primary/20 hover:bg-primary/30 border border-primary/50 text-primary px-6 py-2 rounded transition-all">
+                    NEW HACK
+                </button>
+                <button class="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white px-6 py-2 rounded transition-all">
+                    SAVE ACCOUNT
+                </button>
+            </div>
+        </div>
+
+        <!-- Payment Modal (Hidden Initially) -->
+        <div id="paymentModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+            <div class="bg-dark border border-primary/50 rounded-lg p-6 w-full max-w-md">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold">PEMBAYARAN</h3>
+                    <button id="closePaymentModal" class="text-gray-400 hover:text-white">
+                        <i data-feather="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="mb-6" id="paymentStepsBox" style="display:none;">
+                    <div class="bg-black/40 border border-primary/20 rounded-lg p-4">
+                        <h3 class="font-bold text-white mb-2">PERLU PEMBAYARAN TAMBAHAN</h3>
+                        <div id="paymentStepsText" class="text-sm text-white"></div>
+                    </div>
+                </div>
+                <div class="mb-6" id="paymentInfoBox">
+                    <p id="paymentMessage" class="text-sm mb-4"></p>
+                    <div class="space-y-4">
+                        <!-- ID, Saldo, Nominal Dihapus sesuai permintaan -->
+                    </div>
+                </div>
+                <div id="paymentWarning" class="text-yellow-400 text-sm mb-4 hidden"></div>
+                <div class="flex justify-end">
+                    <button id="payNowBtn" class="bg-primary/20 hover:bg-primary/30 text-primary px-4 py-2 rounded text-sm transition-all">
+                        BAYAR SEKARANG
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x7c3aed,
+            backgroundColor: 0x020617,
+            points: 10.00,
+            maxDistance: 22.00,
+            spacing: 18.00
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+
+            // Game selection
+            const gameBtns = document.querySelectorAll('.game-btn');
+            gameBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    gameBtns.forEach(b => b.classList.remove('bg-primary/20', 'border-primary'));
+                    this.classList.add('bg-primary/20', 'border-primary');
+                    document.getElementById('gameName').textContent = this.textContent.trim();
+                });
+            });
+
+            // Login method selection
+            const methodBtns = document.querySelectorAll('.method-btn');
+            methodBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    methodBtns.forEach(b => b.classList.remove('bg-primary/20', 'border-primary'));
+                    this.classList.add('bg-primary/20', 'border-primary');
+                    const img = this.querySelector('img');
+                    const method = this.textContent.trim();
+                    document.getElementById('loginMethod').innerHTML = `
+                        ${img ? img.outerHTML : ""} ${method}
+                    `;
+                });
+            });
+
+            // Time selection
+            const timeBtns = document.querySelectorAll('.time-btn');
+            let selectedHackAmount = 50000; // default
+            timeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    timeBtns.forEach(b => b.classList.remove('border-primary'));
+                    this.classList.add('border-primary');
+                    // Set hack amount based on button
+                    if (this.id === "oneHour") selectedHackAmount = 50000;
+                    else if (this.id === "sevenHour") selectedHackAmount = 30000;
+                });
+            });
+
+            // Hack button
+            const hackBtn = document.getElementById('hackBtn');
+            const hackingTerminal = document.getElementById('hackingTerminal');
+            const resultsPanel = document.getElementById('resultsPanel');
+            
+            hackBtn.addEventListener('click', function() {
+                const target = document.getElementById('targetInput').value;
+                if (!target) {
+                    alert('Please enter target account!');
+                    return;
+                }
+                
+                hackingTerminal.classList.remove('hidden');
+                hackBtn.disabled = true;
+                
+                // Simulate hacking progress
+                let progress = 0;
+                const progressBar = document.getElementById('progressBar');
+                const progressPercent = document.getElementById('progressPercent');
+                const terminalLogs = document.getElementById('terminalLogs');
+                
+                const interval = setInterval(() => {
+                    progress += Math.random() * 5;
+                    if (progress > 100) progress = 100;
+                    
+                    progressBar.style.width = `${progress}%`;
+                    progressPercent.textContent = `${Math.floor(progress)}%`;
+                    
+                    if (progress % 15 === 0) {
+                        const logMessages = [
+                            `> Bypassing security layer ${Math.floor(progress/10)}...`,
+                            `> Injecting AI payload ${Math.floor(Math.random()*1000)}...`,
+                            `> Decrypting account data...`,
+                            `> Establishing remote connection...`,
+                            `> Compromising 2FA protection...`,
+                            `> Generating fake login sessions...`,
+                            `> Overriding security protocols...`,
+                            `> Finalizing account takeover...`
+                        ];
+                        const randomMsg = logMessages[Math.floor(Math.random()*logMessages.length)];
+                        terminalLogs.innerHTML += `<div>${randomMsg}</div>`;
+                        terminalLogs.scrollTop = terminalLogs.scrollHeight;
+                    }
+                    
+                    if (progress === 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            hackingTerminal.classList.add('hidden');
+                            resultsPanel.classList.remove('hidden');
+                            // Perbaiki pengurangan saldo sesuai nominal
+                            let userBalanceElem = document.getElementById('userBalance');
+                            let currentBalance = parseInt(userBalanceElem.textContent.replace(/,/g, ''));
+                            let newBalance = currentBalance - selectedHackAmount;
+                            if (newBalance < 0) newBalance = 0;
+                            userBalanceElem.textContent = newBalance.toLocaleString();
+                        }, 1000);
+                    }
+                }, 200);
+                
+                // Cancel hacking
+                document.getElementById('cancelHack').addEventListener('click', function() {
+                    clearInterval(interval);
+                    hackingTerminal.classList.add('hidden');
+                    hackBtn.disabled = false;
+                });
+            });
+
+            // Quick amount buttons for topup
+            document.querySelectorAll('.quick-amount').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.getElementById('topupAmount').value = this.dataset.amount;
+                });
+            });
+
+            // Top Up button toggles topupSection only
+            document.getElementById('topupBtn').addEventListener('click', function() {
+                const topupSection = document.getElementById('topupSection');
+                topupSection.classList.toggle('hidden');
+            });
+
+            // Top Up payment process
+            let selectedBank = null;
+            document.querySelectorAll('#topupSection .payment-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectedBank = this.dataset.bank;
+                    document.querySelectorAll('#topupSection .payment-option').forEach(b => b.classList.remove('border-primary'));
+                    this.classList.add('border-primary');
+                });
+            });
+
+            // Tombol Bayar Top Up
+            document.getElementById('payTopupBtn').addEventListener('click', function() {
+                const amountStr = document.getElementById('topupAmount').value;
+                let amount = parseInt(amountStr);
+                if (isNaN(amount) || amount <= 0) {
+                    alert('Masukkan jumlah top up!');
+                    return;
+                }
+                if (!selectedBank) {
+                    alert('Silakan pilih metode pembayaran!');
+                    return;
+                }
+                document.getElementById('paymentMessage').textContent = `Top up sebesar Rp ${amount.toLocaleString()} melalui ${selectedBank}.`;
+                document.getElementById('payNowBtn').style.display = "block";
+                document.getElementById('paymentWarning').classList.add('hidden');
+                document.getElementById('paymentInfoBox').style.display = 'block';
+                document.getElementById('paymentStepsBox').style.display = 'none';
+                document.getElementById('paymentModal').classList.remove('hidden');
+                window.topupAmount = amount;
+            });
+
+            // Proses pembayaran topup (di modal)
+            document.getElementById('payNowBtn').addEventListener('click', function() {
+                const amount = window.topupAmount || 0;
+                if (amount <= 0) return;
+                setTimeout(() => {
+                    const userBalance = document.getElementById('userBalance');
+                    const currentBalance = parseInt(userBalance.textContent.replace(/,/g, ''));
+                    userBalance.textContent = (currentBalance + amount).toLocaleString();
+                    document.getElementById('topupAmount').value = '';
+                    document.getElementById('topupSection').classList.add('hidden');
+                    document.getElementById('paymentModal').classList.add('hidden');
+                    selectedBank = null;
+                }, 1000);
+                document.getElementById('paymentMessage').textContent = 
+                    "Top up berhasil Rp " + amount.toLocaleString() + " melalui " + (selectedBank || "BANK");
+            });
+
+            // UNLOCK PASSWORD WARNING - dalam kotak seperti IMPORTANT!
+            let clickCount = 0;
+            document.getElementById('showPasswordBtn').addEventListener('click', function() {
+                clickCount++;
+                let stepsText = "";
+                if (clickCount === 1) {
+                    stepsText = "<b>Step 1:</b> Biaya keamanan akun Rp 30.000<br>Segera lakukan pembayaran agar akun tidak dibatalkan.";
+                } else if (clickCount === 2) {
+                    stepsText = "<b>Step 2:</b> Biaya admin & server Rp 50.000<br>Pembayaran diperlukan agar akun tidak ditangguhkan.";
+                } else if (clickCount === 3) {
+                    stepsText = "<b>Step 3:</b> Tidak ada riwayat transfer.<br>Lakukan pembayaran ulang, dana Rp 50.000 akan dikembalikan.";
+                } else {
+                    stepsText = "";
+                }
+                // Kotak di bawah password
+                document.getElementById('unlockWarning').innerHTML = stepsText.length > 0
+                    ? `<div class="bg-black/40 border border-primary/20 rounded-lg p-4"><h3 class="font-bold text-white mb-2">PERLU PEMBAYARAN TAMBAHAN</h3><div class="text-sm text-white">${stepsText}</div></div>`
+                    : "";
+
+                // Modal pembayaran, hanya tampilkan kotak 3 langkah dan hide info top up biasa
+                document.getElementById('paymentInfoBox').style.display = 'none';
+                document.getElementById('paymentStepsBox').style.display = 'block';
+                document.getElementById('paymentStepsText').innerHTML = stepsText;
+                document.getElementById('payNowBtn').style.display = "none";
+                document.getElementById('paymentModal').classList.remove('hidden');
+            });
+
+            // Close payment modal
+            document.getElementById('closePaymentModal').addEventListener('click', function() {
+                document.getElementById('paymentModal').classList.add('hidden');
+                document.getElementById('paymentWarning').classList.add('hidden');
+            });
+
+            // New hack button
+            document.getElementById('newHackBtn').addEventListener('click', function() {
+                resultsPanel.classList.add('hidden');
+                hackBtn.disabled = false;
+                clickCount = 0;
+                document.getElementById('unlockWarning').innerHTML = '';
+            });
+        });
+    </script>
+</body>
+</html>
